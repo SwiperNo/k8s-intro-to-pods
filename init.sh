@@ -9,6 +9,7 @@ install_helm() {
         curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
         chmod 700 get_helm.sh
         ./get_helm.sh
+        #This line may not be needed but I had some weirdness going on so here we are
         echo 'export PATH=$PATH:/usr/local/bin' >> ~/.bashrc
         source ~/.bashrc
     fi
