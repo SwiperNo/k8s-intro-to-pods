@@ -17,9 +17,9 @@ install_helm() {
 deploy_pods() {
     if which helm >/dev/null 2>&1; then
         echo "Helm is installed. Deploying apps..."
-        helm install hello-pod k8s-intro-to-pods/hello-pod
-        helm install init-pod k8s-intro-to-pods/init-pod
-        helm install sidecar-pod k8s-intro-to-pods/sidecar-pod
+        helm install hello-pod ./hello-pod
+        helm install init-pod ./init-pod
+        helm install sidecar-pod ./sidecar-pod
     else
         echo "Helm is not installed. Cannot deploy apps."
         exit 1
