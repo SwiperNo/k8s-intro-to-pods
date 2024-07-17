@@ -1,0 +1,26 @@
+pod:
+  name: initpod
+  labels:
+    app: initializer
+
+initContainer:
+  name: init-ctr
+  image: busybox:1.28.4
+  command:
+    - 'sh'
+    - '-c'
+    - 'echo "Starting init container..."; sleep 10; echo "Init container complete"'
+
+container:
+  name: web-ctr
+  image: nigelpoulton/web-app:1.0
+  ports:
+    containerPort: 8080
+
+service:
+  name: initpod-svc
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+  selector:
+    app: initializer

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ .Values.pod.name }}
+  labels:
+    app: {{ .Values.pod.labels.app }}
+spec:
+  initContainers:
+  - name: {{ .Values.initContainer.name }}
+    image: {{ .Values.initContainer.image }}
+    command: 
+    {{- toYaml .Values.initContainer.command | nindent 4 }}
+  containers:
+  - name: {{ .Values.container.name }}
+    image: {{ .Values.container.image }}
+    ports:
+    - containerPort: {{ .Values.container.ports.containerPort }}

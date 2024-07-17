@@ -1,0 +1,20 @@
+replicaCount: 1
+
+image:
+  nginx:
+    repository: nginx
+    tag: latest
+  gitSync:
+    repository: k8s.gcr.io/git-sync
+    tag: v3.1.6
+
+gitSync:
+  repo: "https://github.com/SwiperNo/ps-sidecar.git"
+  branch: "master"
+  depth: "1"
+  dest: "html"
+
+service:
+  type: NodePort
+  port: 80
+  nodePort: 32000

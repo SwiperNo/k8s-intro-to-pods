@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ .Values.pod.name }}
+  labels:
+    zone: {{ .Values.pod.labels.zone }}
+    version: {{ .Values.pod.labels.version }}
+spec:
+  containers:
+  - name: {{ .Values.container.name }}
+    image: {{ .Values.container.image }}
+    ports:
+    - containerPort: {{ .Values.container.ports.containerPort }}
+    resources:
+      limits:
+        memory: {{ .Values.container.resources.limits.memory }}
+        cpu: {{ .Values.container.resources.limits.cpu }}

@@ -1,0 +1,5 @@
+apiVersion: v2
+name: hello
+description: A basic Helm chart for deploying a Pod
+version: 0.1.0
+appVersion: "1.0"
