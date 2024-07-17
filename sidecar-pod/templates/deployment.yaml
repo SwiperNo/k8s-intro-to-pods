@@ -1,46 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-git-sync
+  name: {{ .Release.Name }}-deployment
   labels:
-    app: sidecar
+    app: sidecar-logs
     release: {{ .Release.Name }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: sidecar
+      app: sidecar-logs
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: sidecar
+        app: sidecar-logs
         release: {{ .Release.Name }}
     spec:
       containers:
-      - name: ctr-web
+      - name: nginx
         image: {{ .Values.image.nginx.repository }}:{{ .Values.image.nginx.tag }}
+        ports:
+        - containerPort: 80
         volumeMounts:
-        - name: html
-          mountPath: /usr/share/nginx/html
-        resources:
-          {{- toYaml .Values.resources | nindent 10 }}
-      - name: ctr-sync
-        image: {{ .Values.image.gitSync.repository }}:{{ .Values.image.gitSync.tag }}
+        - name: logs
+          mountPath: /var/log/nginx
+      - name: busybox
+        image: {{ .Values.image.busybox.repository }}:{{ .Values.image.busybox.tag }}
+        command: ['sh', '-c', 'tail -f /var/log/nginx/access.log']
         volumeMounts:
-        - name: html
-          mountPath: /tmp/git
-        env:
-        - name: GIT_SYNC_REPO
-          value: {{ .Values.gitSync.repo | quote }}
-        - name: GIT_SYNC_BRANCH
-          value: {{ .Values.gitSync.branch | quote }}
-        - name: GIT_SYNC_DEPTH
-          value: {{ .Values.gitSync.depth | quote }}
-        - name: GIT_SYNC_DEST
-          value: {{ .Values.gitSync.dest | quote }}
+        - name: logs
+          mountPath: /var/log/nginx
       volumes:
-      - name: html
+      - name: logs
         emptyDir: {}
       nodeSelector:
         {{- toYaml .Values.nodeSelector | nindent 8 }}

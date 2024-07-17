@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-svc-sidecar
+  name: {{ .Release.Name }}-svc
   labels:
-    app: sidecar
+    app: sidecar-logs
     release: {{ .Release.Name }}
 spec:
   selector:
-    app: sidecar
+    app: sidecar-logs
     release: {{ .Release.Name }}
   ports:
   - port: {{ .Values.service.port }}

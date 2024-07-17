@@ -4,17 +4,16 @@ image:
   nginx:
     repository: nginx
     tag: latest
-  gitSync:
-    repository: k8s.gcr.io/git-sync
-    tag: v3.1.6
-
-gitSync:
-  repo: "https://github.com/SwiperNo/ps-sidecar.git"
-  branch: "master"
-  depth: "1"
-  dest: "html"
+  busybox:
+    repository: busybox
+    tag: 1.28.4
 
 service:
   type: NodePort
   port: 80
   nodePort: 32000
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+resources: {}

@@ -9,7 +9,6 @@ install_helm() {
         curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
         chmod 700 get_helm.sh
         ./get_helm.sh
-        rm get_helm.sh
     fi
 }
 
@@ -48,9 +47,9 @@ pull_repo() {
 deploy_pods() {
     if which helm >/dev/null 2>&1; then
         echo "Helm is installed. Deploying apps..."
-        helm install hello-pod ./hello-pod
-        helm install init-pod ./init-pod
-        helm install sidecar-pod ./sidecar-pod
+        helm install hello-pod k8s-intro-to-pods/hello-pod
+        helm install init-pod k8s-intro-to-pods/init-pod
+        helm install sidecar-pod k8s-intro-to-pods/sidecar-pod
     else
         echo "Helm is not installed. Cannot deploy apps."
         exit 1
