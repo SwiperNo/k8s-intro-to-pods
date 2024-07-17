@@ -12,6 +12,7 @@ install_helm() {
         #This line may not be needed but I had some weirdness going on so here we are
         echo 'export PATH=$PATH:/usr/local/bin' >> ~/.bashrc
         source ~/.bashrc
+        rm ./get_helm.sh
     fi
 }
 
