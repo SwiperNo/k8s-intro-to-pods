@@ -24,7 +24,7 @@ uninstall_helm() {
     # Remove Helm binary if installed via the get_helm.sh script
     if which helm >/dev/null 2>&1; then
         sudo rm -f $(which helm)
-        rm get_helm.sh
+        rm ./get_helm.sh
     fi
     
     # If Helm was installed via a package manager, uninstall it
